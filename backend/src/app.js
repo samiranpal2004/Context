@@ -1,0 +1,93 @@
+import express from 'express';
+import cors from 'cors';
+import authRoutes from "./routes/auth.route.js"
+
+// Initialize Express app
+const app = express();
+
+// ============================================
+// MIDDLEWARE
+// ============================================
+
+// 1. Body Parser - Parse JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 2. CORS - Allow cross-origin requests
+const allowedOrigins = process.env.ALLOWED_ORIGINS;
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is allowed
+    if (allowedOrigins.some(allowed => {
+      // Handle wildcard for chrome-extension://*
+      if (allowed.includes('*')) {
+        const pattern = allowed.replace('*', '.*');
+        return new RegExp(pattern).test(origin);
+      }
+      return allowed === origin;
+    })) {
+      return callback(null, true);
+    }
+    
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
+
+// 3. Request Logger (Development only)
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
+  });
+}
+
+// // otherwise we can use 
+// app.use(cors({ origin: true, credentials: true }));
+
+
+// ============================================
+// ROUTES
+// ============================================
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    success: true,
+    message: 'Context API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// API Routes (we'll add these later)
+app.use('/api/auth', authRoutes);
+// app.use('/api/memories', memoryRoutes);
+
+// ============================================
+// ERROR HANDLING
+// ============================================
+
+// 404 Handler - Route not found
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} not found`
+  });
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
+});
+
+export default app;
