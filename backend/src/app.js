@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import authRoutes from "./routes/auth.route.js"
+import memoryRoutes from './routes/memory.route.js';
 
 // Initialize Express app
 const app = express();
@@ -65,7 +66,7 @@ app.get('/health', (req, res) => {
 
 // API Routes (we'll add these later)
 app.use('/api/auth', authRoutes);
-// app.use('/api/memories', memoryRoutes);
+app.use('/api/memories', memoryRoutes);
 
 // ============================================
 // ERROR HANDLING

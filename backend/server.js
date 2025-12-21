@@ -1,11 +1,12 @@
-import dotenv from 'dotenv';
-// Load environment variables FIRST
-dotenv.config();
+import 'dotenv/config';
 
 import app from './src/app.js';
 import { connectDB } from './src/config/db.js';
+import { testGemini } from './src/config/gemini.js';
 
 connectDB();
+
+testGemini();
 
 // ============================================
 // SERVER CONFIGURATION

@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Context",
+  "version": "1.0.0",
+  "description": "Save web pages with AI analysis",
+  
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications"
+  ],
+  
+  "host_permissions": [
+    "http://localhost:5000/*"
+  ],
+  
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content-script.js"]
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  
+  "commands": {
+    "save-memory": {
+      "suggested_key": {
+        "default": "Ctrl+J"
+      },
+      "description": "Save current page"
+    }
+  }
+}
