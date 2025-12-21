@@ -3,36 +3,32 @@
   "name": "Context",
   "version": "1.0.0",
   "description": "Save web pages with AI analysis",
-  
-  "permissions": [
-    "activeTab",
-    "storage",
-    "notifications"
-  ],
-  
-  "host_permissions": [
-    "http://localhost:5000/*"
-  ],
-  
+
+  "permissions": ["activeTab", "storage", "notifications", "scripting"],
+
+  "host_permissions": ["http://localhost:5000/*"],
+
   "background": {
     "service_worker": "background/service-worker.js"
   },
-  
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content/content-script.js"]
+      "js": ["content/content-script.js"],
+      "run_at": "document_idle"
     }
   ],
-  
+
   "action": {
     "default_popup": "popup/popup.html"
   },
-  
+
   "commands": {
     "save-memory": {
       "suggested_key": {
-        "default": "Ctrl+J"
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
       },
       "description": "Save current page"
     }
