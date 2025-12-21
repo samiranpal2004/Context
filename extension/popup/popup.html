@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🧠 Context</h1>
+      <p>Your Second Brain</p>
+    </div>
+    
+    <!-- Setup Section (shown when no API key) -->
+    <div id="setup" class="section">
+      <h2>Setup</h2>
+      <p>Enter your API key from the backend:</p>
+      
+      <input 
+        type="text" 
+        id="apiKeyInput" 
+        placeholder="ctx_abc123..." 
+      />
+      
+      <button id="saveBtn">Save API Key</button>
+      
+      <div class="hint">
+        💡 Get your API key by registering at your backend
+      </div>
+    </div>
+    
+    <!-- Success Section (shown when API key is set) -->
+    <div id="success" class="section hidden">
+      <div class="check">✅</div>
+      <h2>All Set!</h2>
+      <p>Press <kbd>Ctrl+J</kbd> on any page to save it.</p>
+      
+      <button id="changeBtn" class="secondary">Change API Key</button>
+    </div>
+    
+    <!-- Message area -->
+    <div id="message" class="message hidden"></div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
