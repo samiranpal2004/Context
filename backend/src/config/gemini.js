@@ -19,5 +19,5 @@ export async function testGemini() {
 // Export model names as constants
 export const MODELS = {
   FLASH: 'gemini-2.5-flash',
-  EMBEDDING: 'text-embedding-004'
+  EMBEDDING: 'gemini-embedding-001'
 };
