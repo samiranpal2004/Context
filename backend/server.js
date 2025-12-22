@@ -4,25 +4,31 @@ import app from './src/app.js';
 import { connectDB } from './src/config/db.js';
 import { testGemini } from './src/config/gemini.js';
 
-connectDB();
 
-testGemini();
+async function startServer() {
+  try {
+    // Connect MongoDB
+    await connectDB();
+    
+    testGemini();
+    
+    // Start server
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log('='.repeat(50));
+      console.log(`🚀 Context API Server`);
+      console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+      console.log(`🌐 Server running on port ${PORT}`);
+      console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+      console.log('='.repeat(50));
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+}
 
-// ============================================
-// SERVER CONFIGURATION
-// ============================================
-
-const PORT = process.env.PORT || 5000;
-
-// Start the server
-const server = app.listen(PORT, () => {
-  console.log('='.repeat(50));
-  console.log(`🚀 Context API Server`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV}`);
-  console.log(`🌐 Server running on port ${PORT}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log('='.repeat(50));
-});
+startServer();
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {

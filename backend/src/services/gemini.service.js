@@ -66,11 +66,20 @@ export async function generateContent(prompt) {
 
 export async function generateEmbedding(text) {
   try {
-    const response = await genAI.models.embedContent({
-      model: MODELS.EMBEDDING,
-      content: text
-    });
-    return response.values;
+      console.log('Attempting to generate embedding for text length:', text.length);
+    
+    if (genAI.models && typeof genAI.models.embedContent === 'function') {
+      const result = await genAI.models.embedContent({
+        model: MODELS.EMBEDDING,
+       contents: text,
+      });
+      
+      // FIX: Extract the values from the first embedding
+    const embedding = result.embeddings[0].values;
+    
+    console.log('✅ Embedding generated:', embedding.length, 'dimensions');
+    return embedding;
+    }
   } catch (error) {
     console.error('❌ Embedding generation error:', error);
     throw new Error(`Embedding generation failed: ${error.message}`);

@@ -1,6 +1,7 @@
 import Memory from "../models/memory.model.js"
 import User from "../models/user.model.js"
-import { analyzePageCapture } from '../services/gemini.service.js';
+import { analyzePageCapture, generateEmbedding } from '../services/gemini.service.js';
+import { v4 as uuidv4 } from 'uuid'; 
 
 
 export const createMemory = async (req, res) => {
@@ -15,7 +16,9 @@ export const createMemory = async (req, res) => {
       });
     }
 
-    // Analyze page with Gemini AI
+
+    // Step 1: Analyze with Gemini
+    console.log('🤖 Analyzing page with Gemini...');
     const aiMetadata = await analyzePageCapture({
       title,
       url,
@@ -23,8 +26,22 @@ export const createMemory = async (req, res) => {
       pageType,
       selectedText
     });
+    console.log('✅ Analysis complete:', aiMetadata);
 
-    // Create memory in database
+    // Step 2: Generate embedding
+    let embedding = null;
+    try {
+      console.log('🔢 Generating embedding...');
+      const textToEmbed = `${title} ${aiMetadata.summary} ${aiMetadata.tags.join(' ')}`;
+      embedding = await generateEmbedding(textToEmbed);
+      console.log('✅ Embedding generated:', embedding.length, 'dimensions');
+    } catch (embeddingError) {
+      console.error('⚠️  Embedding generation failed:', embeddingError.message);
+      console.log('⚠️  Continuing without embedding...');
+      // Don't fail the request, just continue without embedding
+    }
+
+    // Step 3: Create memory in MongoDB (with embedding)
     const memory = await Memory.create({
       userId: req.user._id,
       url,
@@ -37,15 +54,16 @@ export const createMemory = async (req, res) => {
       summary: aiMetadata.summary,
       intent: aiMetadata.intent,
       tags: aiMetadata.tags,
-      importance: aiMetadata.importance
+      importance: aiMetadata.importance,
+      embedding: embedding  // ✨ Store embedding in MongoDB
     });
 
-    // Update user stats
+    console.log('✅ Memory saved to MongoDB:', memory._id);
+
+    // Step 4: Update user stats
     await User.findByIdAndUpdate(req.user._id, {
       $inc: { 'stats.totalMemories': 1 }
     });
-
-    console.log('✅ Memory created:', memory._id);
 
     res.status(201).json({
       success: true,
@@ -60,6 +78,7 @@ export const createMemory = async (req, res) => {
           intent: memory.intent,
           tags: memory.tags,
           importance: memory.importance,
+          hasEmbedding: !!embedding,  // Tell client if embedding exists
           capturedAt: memory.capturedAt
         }
       }
