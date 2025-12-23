@@ -68,7 +68,6 @@ export function ChatInterface() {
     setInputValue(question);
   };
 
-
   return (
     <div className="flex flex-col h-full">
       {/* Messages area */}

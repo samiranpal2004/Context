@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export function ApiKeySetup({ onApiKeySet }) {
-  const [apiKey, setApiKey] = useState('');
+  const [apiKey, setApiKey] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!apiKey.trim()) {
-      setError('Please enter an API key');
+      setError("Please enter an API key");
       return;
     }
 
-    if (!apiKey.startsWith('ctx_')) {
+    if (!apiKey.startsWith("ctx_")) {
       setError('Invalid format. API key should start with "ctx_"');
       return;
     }
@@ -23,26 +23,31 @@ export function ApiKeySetup({ onApiKeySet }) {
 
     try {
       // Verify API key with backend
-      const response = await fetch('http://localhost:5000/api/auth/verify-api-key', {
-        headers: {
-          'x-api-key': apiKey,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/auth/verify-api-key",
+        {
+          headers: {
+            "x-api-key": apiKey,
+          },
+        }
+      );
 
       const result = await response.json();
 
       if (result.success) {
         // Save to Chrome storage
-        if (typeof chrome !== 'undefined' && chrome.storage) {
+        if (typeof chrome !== "undefined" && chrome.storage) {
           chrome.storage.local.set({ apiKey }, () => {
             onApiKeySet?.(apiKey);
           });
         }
       } else {
-        setError('Invalid API key. Please check and try again.');
+        setError("Invalid API key. Please check and try again.");
       }
     } catch (err) {
-      setError('Cannot connect to backend. Make sure it\'s running on http://localhost:5000');
+      setError(
+        "Cannot connect to backend. Make sure it's running on http://localhost:5000"
+      );
     } finally {
       setLoading(false);
     }
@@ -53,19 +58,27 @@ export function ApiKeySetup({ onApiKeySet }) {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="text-6xl mb-4">🧠</div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Context</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Welcome to Context
+          </h1>
           <p className="text-gray-600">Your AI-powered memory bank</p>
         </div>
 
         <div className="card">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Setup Required</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-4">
+            Setup Required
+          </h2>
           <p className="text-sm text-gray-600 mb-6">
-            Enter your API key to get started. You can get this from your backend server.
+            Enter your API key to get started. You can get this from your
+            backend server.
           </p>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="apiKey"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 API Key
               </label>
               <input
@@ -97,7 +110,7 @@ export function ApiKeySetup({ onApiKeySet }) {
                   <span>Verifying...</span>
                 </span>
               ) : (
-                'Save API Key'
+                "Save API Key"
               )}
             </button>
           </form>
@@ -106,7 +119,9 @@ export function ApiKeySetup({ onApiKeySet }) {
             <div className="flex items-start gap-2">
               <span className="text-lg">💡</span>
               <div>
-                <p className="text-xs font-semibold text-indigo-900 mb-1">Getting Started:</p>
+                <p className="text-xs font-semibold text-indigo-900 mb-1">
+                  Getting Started:
+                </p>
                 <ul className="text-xs text-indigo-700 space-y-1">
                   <li>• Make sure backend is running on port 5000</li>
                   <li>• Register to get your API key</li>
@@ -119,7 +134,11 @@ export function ApiKeySetup({ onApiKeySet }) {
 
         <div className="mt-6 text-center">
           <p className="text-xs text-gray-500">
-            Once set up, press <kbd className="px-2 py-1 bg-white rounded text-xs font-mono border border-gray-300">Ctrl+Shift+S</kbd> on any page to save it
+            Once set up, press{" "}
+            <kbd className="px-2 py-1 bg-white rounded text-xs font-mono border border-gray-300">
+              Ctrl+Shift+S
+            </kbd>{" "}
+            on any page to save it
           </p>
         </div>
       </div>
