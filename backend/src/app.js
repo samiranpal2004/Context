@@ -3,6 +3,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.route.js";
 import memoryRoutes from "./routes/memory.route.js";
 import searchRoutes from './routes/search.route.js';
+import chatRoutes from './routes/chat.route.js';
 
 // Initialize Express app
 const app = express();
@@ -75,6 +76,7 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/memories", memoryRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/chat', chatRoutes);
 
 // ============================================
 // ERROR HANDLING
