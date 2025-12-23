@@ -4,7 +4,13 @@
   "version": "1.0.0",
   "description": "Save web pages with AI analysis",
 
-  "permissions": ["activeTab", "storage", "notifications", "scripting"],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "notifications",
+    "scripting",
+    "sidePanel"
+  ],
 
   "host_permissions": ["http://localhost:5000/*"],
 
@@ -21,7 +27,16 @@
   ],
 
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_title": "Context - Your Second Brain"
+  },
+
+  "side_panel": {
+    "default_path": "sidepanel/dist/index.html"
+  },
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
   },
 
   "commands": {
@@ -31,6 +46,13 @@
         "mac": "Command+Shift+S"
       },
       "description": "Save current page"
+    },
+    "open-sidepanel": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Open sidepanel"
     }
   }
 }

@@ -2,11 +2,25 @@
 
 const API_URL = "http://localhost:5000/api";
 
-// Listen for keyboard shortcut
+// Set up sidepanel behavior on install
+chrome.runtime.onInstalled.addListener(() => {
+  console.log("✅ Context extension installed");
+  // Enable sidepanel to open on action click
+  chrome.sidePanel
+    .setPanelBehavior({ openPanelOnActionClick: true })
+    .catch((error) => console.error(error));
+});
+
+// Listen for keyboard shortcuts
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "save-memory") {
     console.log("🔥 Ctrl+Shift+S pressed! Saving page...");
     await saveCurrentPage();
+  } else if (command === "open-sidepanel") {
+    console.log("🔥 Ctrl+Shift+E pressed! Opening sidepanel...");
+    // Get current window and open sidepanel
+    const window = await chrome.windows.getCurrent();
+    chrome.sidePanel.open({ windowId: window.id });
   }
 });
 
