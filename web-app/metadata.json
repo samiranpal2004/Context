@@ -1,0 +1,8 @@
+{
+  "name": "Context - Your Second Brain",
+  "description": "A premium AI-powered memory management system that helps you save, search, and chat with your web browsing history.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
