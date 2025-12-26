@@ -21,32 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
   : ["http://localhost:3000"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or Postman)
-      if (!origin) return callback(null, true);
-
-      // Check if origin is allowed
-      if (
-        allowedOrigins.some((allowed) => {
-          // Handle wildcard for chrome-extension://*
-          if (allowed.includes("*")) {
-            const pattern = allowed.replace("*", ".*");
-            return new RegExp(pattern).test(origin);
-          }
-          return allowed === origin;
-        })
-      ) {
-        return callback(null, true);
-      }
-
-      callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 // 3. Request Logger (Development only)
 if (process.env.NODE_ENV === "development") {
@@ -56,8 +34,6 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-// // otherwise we can use
-// app.use(cors({ origin: true, credentials: true }));
 
 // ============================================
 // ROUTES
