@@ -57,15 +57,7 @@ const Dashboard: React.FC = () => {
             Here's your personal knowledge overview for today.
           </p>
         </div>
-        <div className="flex gap-3">
-          <button className="px-6 py-3 bg-white border border-slate-200 text-slate-900 rounded-xl font-bold shadow-sm hover:bg-slate-50 transition-all">
-            Settings
-          </button>
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-100 flex items-center gap-2 hover:bg-blue-700 transition-all">
-            <Plus size={20} />
-            Quick Save
-          </button>
-        </div>
+    
       </header>
 
       {/* Stats Grid */}
