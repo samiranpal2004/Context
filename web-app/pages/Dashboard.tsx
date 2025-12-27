@@ -57,7 +57,14 @@ const Dashboard: React.FC = () => {
             Here's your personal knowledge overview for today.
           </p>
         </div>
-    
+        <a
+          to="/extension.zip"
+          download
+          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl cursor-pointer"
+        >
+          <Plus size={20} />
+          Download Extension
+        </a>
       </header>
 
       {/* Stats Grid */}
