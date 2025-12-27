@@ -39,5 +39,4 @@ export const INTENT_THEMES: Record<
   },
 };
 
-export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+export const API_BASE_URL = "https://context-alpha-vert.vercel.app/api";

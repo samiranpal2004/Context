@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://context-git-main-palsamiranpal2004-gmailcoms-projects.vercel.app/api";
+const API_BASE_URL = "https://context-alpha-vert.vercel.app/api";
 
 async function getApiKey() {
   if (typeof chrome !== "undefined" && chrome.storage) {

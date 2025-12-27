@@ -58,8 +58,8 @@ const Dashboard: React.FC = () => {
           </p>
         </div>
         <a
-          to="/extension.zip"
-          download
+          href="/extension.zip"
+          download="extension.zip"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl cursor-pointer"
         >
           <Plus size={20} />
