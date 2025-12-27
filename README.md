@@ -4,6 +4,9 @@ We all bookmark pages we swear we’ll come back to. Then months pass, and those
 
 Think of it as a personal knowledge base where you’re in control of what goes in, and an AI that speaks from what you saved.
 
+Here is the Live webpage link, You can dawnload the extension from the webpage, In profile section you will get the instructions to use the extension:
+https://context-dhch.vercel.app/
+
 ---
 
 ## Why Not Just Bookmarks?
