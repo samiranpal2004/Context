@@ -27,6 +27,11 @@ if (!cached) {
  * @returns {Promise<typeof mongoose>} Mongoose connection
  */
 export async function connectDB() {
+  // Check for MongoDB URI
+  if (!process.env.MONGODB_URI) {
+    throw new Error('MONGODB_URI environment variable is not defined. Please set it in your Vercel project settings.');
+  }
+
   // Return existing connection if available
   if (cached.conn) {
     console.log('✅ Using cached MongoDB connection');

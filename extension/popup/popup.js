@@ -37,7 +37,7 @@ saveBtn.addEventListener("click", async () => {
   // Verify API key with backend
   try {
     const response = await fetch(
-      "http://localhost:5000/api/auth/verify-api-key",
+      "https://context-alpha-vert.vercel.app/api/auth/verify-api-key",
       {
         headers: {
           "x-api-key": apiKey,

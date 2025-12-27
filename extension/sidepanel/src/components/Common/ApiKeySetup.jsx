@@ -24,7 +24,7 @@ export function ApiKeySetup({ onApiKeySet }) {
     try {
       // Verify API key with backend
       const response = await fetch(
-        "http://localhost:5000/api/auth/verify-api-key",
+        "https://context-alpha-vert.vercel.app/api/auth/verify-api-key",
         {
           headers: {
             "x-api-key": apiKey,
@@ -46,7 +46,7 @@ export function ApiKeySetup({ onApiKeySet }) {
       }
     } catch (err) {
       setError(
-        "Cannot connect to backend. Make sure it's running on http://localhost:5000"
+        "Cannot connect to backend. Please check your internet connection."
       );
     } finally {
       setLoading(false);

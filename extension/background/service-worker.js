@@ -1,6 +1,6 @@
 // Background script - runs in the background, handles keyboard shortcut
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://context-alpha-vert.vercel.app/api";
 
 // Set up sidepanel behavior on install
 chrome.runtime.onInstalled.addListener(() => {
