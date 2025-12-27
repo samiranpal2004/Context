@@ -1,4 +1,5 @@
 import { chatWithMemories, suggestQuestions } from '../services/chat.service.js';
+import { connectDB } from '../lib/mongodb.js';
 
 /**
  * @desc    Chat with memories using RAG
@@ -7,6 +8,9 @@ import { chatWithMemories, suggestQuestions } from '../services/chat.service.js'
  */
 export const chat = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { question, maxMemories = 5 } = req.body;
     
     if (!question) {
@@ -46,6 +50,9 @@ export const chat = async (req, res) => {
  */
 export const getSuggestions = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { topic } = req.body;
     
     if (!topic) {

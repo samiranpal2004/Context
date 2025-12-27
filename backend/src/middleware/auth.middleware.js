@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import  User  from '../models/user.model.js';
+import User from '../models/user.model.js';
+import { connectDB } from '../lib/mongodb.js';
 
 /**
  * Protect routes - Check JWT token
@@ -7,6 +8,9 @@ import  User  from '../models/user.model.js';
  */
 export const protect = async (req, res, next) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     let token;
 
     // Get token from header: "Authorization: Bearer <token>"
@@ -53,6 +57,9 @@ export const protect = async (req, res, next) => {
  */
 export const protectWithApiKey = async (req, res, next) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     // Get API key from header: "x-api-key: ctx_..."
     const apiKey = req.headers['x-api-key'];
 

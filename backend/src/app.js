@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.route.js";
 import memoryRoutes from "./routes/memory.route.js";
 import searchRoutes from "./routes/search.route.js";
 import chatRoutes from "./routes/chat.route.js";
+import connectDB from "./lib/mongodb.js";
 
 // Initialize Express app
 const app = express();
@@ -36,7 +37,7 @@ if (process.env.NODE_ENV === "development") {
     next();
   });
 }
-
+app.use(connectDB);
 // ============================================
 // ROUTES
 // ============================================

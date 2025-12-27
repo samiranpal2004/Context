@@ -1,20 +1,13 @@
-import mongoose from 'mongoose';
-
 /**
- * Connect to MongoDB Database
- * This function establishes connection to MongoDB
- * and handles connection events
+ * DEPRECATED: This file is kept for backward compatibility only
+ * Use src/lib/mongodb.js instead for Vercel serverless compatibility
+ * 
+ * The new implementation provides:
+ * - Global connection caching
+ * - Disabled buffering (prevents timeouts)
+ * - Vercel serverless safe
  */
-export const connectDB = async () => {
-  try {
-    // Attempt to connect
-    const conn = await mongoose.connect(process.env.MONGODB_URI);
 
-    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
-    console.log(`📊 Database Name: ${conn.connection.name}`);
+import { connectDB } from '../lib/mongodb.js';
 
-  } catch (error) {
-    console.error('❌ MongoDB Connection Failed:', error.message);
-    process.exit(1); // Exit process with failure
-  }
-};
+export { connectDB };
