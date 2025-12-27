@@ -2,9 +2,8 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.route.js";
 import memoryRoutes from "./routes/memory.route.js";
-import searchRoutes from "./routes/search.route.js";
-import chatRoutes from "./routes/chat.route.js";
-import connectDB from "./lib/mongodb.js";
+import searchRoutes from './routes/search.route.js';
+import chatRoutes from './routes/chat.route.js';
 
 // Initialize Express app
 const app = express();
@@ -22,13 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
   : ["http://localhost:3000"];
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-    origin: ["http://localhost:3000", "https://your-webapp-domain.vercel.app"],
-  })
-);
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 // 3. Request Logger (Development only)
 if (process.env.NODE_ENV === "development") {
@@ -37,7 +33,8 @@ if (process.env.NODE_ENV === "development") {
     next();
   });
 }
-app.use(connectDB);
+
+
 // ============================================
 // ROUTES
 // ============================================
@@ -54,8 +51,8 @@ app.get("/health", (req, res) => {
 // API Routes (we'll add these later)
 app.use("/api/auth", authRoutes);
 app.use("/api/memories", memoryRoutes);
-app.use("/api/search", searchRoutes);
-app.use("/api/chat", chatRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/chat', chatRoutes);
 
 // ============================================
 // ERROR HANDLING
