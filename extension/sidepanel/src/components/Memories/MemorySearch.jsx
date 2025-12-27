@@ -4,6 +4,7 @@ import MemoryCard from "./MemoryCard";
 import LoadingSpinner from "../Common/LoadingSpinner";
 import EmptyState from "../Common/EmptyState";
 import ErrorMessage from "../Common/ErrorMessage";
+import { Search, SearchX } from "lucide-react";
 
 export function MemorySearch() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -113,7 +114,7 @@ export function MemorySearch() {
 
         {!loading && !error && !hasSearched && (
           <EmptyState
-            icon="🔍"
+            icon={Search}
             title="Semantic Search"
             description="Search your memories using natural language. Type at least 3 characters to start."
           />
@@ -121,7 +122,7 @@ export function MemorySearch() {
 
         {!loading && !error && hasSearched && filteredResults.length === 0 && (
           <EmptyState
-            icon="😔"
+            icon={SearchX}
             title="No matching memories found"
             description="Try adjusting your search query or lowering the similarity threshold."
           />
@@ -142,7 +143,7 @@ export function MemorySearch() {
                 <div key={result.memory._id || index} className="relative">
                   <MemoryCard memory={result.memory} />
                   <div className="absolute top-2 right-2">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-500 text-white shadow-lg">
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-premium-dark text-premium-light shadow-lg">
                       {Math.round(result.similarity * 100)}%
                     </span>
                   </div>

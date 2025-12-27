@@ -1,10 +1,11 @@
 import React from "react";
 import { formatDate } from "../../utils/dateFormatter";
 import { getIntentColor, getIntentIcon } from "../../utils/intentColors";
+import { Trash2, Star } from "lucide-react";
 
 export function MemoryCard({ memory, onClick, onDelete }) {
   const intentColor = getIntentColor(memory.intent);
-  const intentIcon = getIntentIcon(memory.intent);
+  const IntentIcon = getIntentIcon(memory.intent);
 
   const handleClick = () => {
     if (memory.url) {
@@ -21,13 +22,16 @@ export function MemoryCard({ memory, onClick, onDelete }) {
   };
 
   const renderStars = (importance) => {
-    const filled = "★".repeat(importance);
-    const empty = "☆".repeat(5 - importance);
     return (
-      <span className="text-yellow-500">
-        {filled}
-        <span className="text-gray-300">{empty}</span>
-      </span>
+      <div className="flex gap-0.5">
+        {[...Array(5)].map((_, i) => (
+          <Star
+            key={i}
+            size={12}
+            className={i < importance ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}
+          />
+        ))}
+      </div>
     );
   };
 
@@ -40,19 +44,7 @@ export function MemoryCard({ memory, onClick, onDelete }) {
           className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200"
           title="Delete memory"
         >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            />
-          </svg>
+          <Trash2 size={16} />
         </button>
       )}
 
@@ -61,7 +53,7 @@ export function MemoryCard({ memory, onClick, onDelete }) {
         <span
           className={`badge ${intentColor.bg} ${intentColor.text} border ${intentColor.border}`}
         >
-          <span className="mr-1">{intentIcon}</span>
+          <IntentIcon size={14} className="mr-1" />
           <span className="capitalize">{memory.intent}</span>
         </span>
         <span className="text-xs text-gray-400">

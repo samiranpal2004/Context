@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SourceCard from "./SourceCard";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 export function ChatMessage({ message, isUser }) {
   const [showSources, setShowSources] = useState(true);
@@ -7,7 +8,7 @@ export function ChatMessage({ message, isUser }) {
   if (isUser) {
     return (
       <div className="flex justify-end mb-4 animate-fadeIn">
-        <div className="max-w-[80%] bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-3 rounded-2xl rounded-tr-sm shadow-sm">
+        <div className="max-w-[80%] bg-premium-dark text-premium-light px-4 py-3 rounded-2xl rounded-tr-sm shadow-sm">
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
         </div>
       </div>
@@ -27,7 +28,7 @@ export function ChatMessage({ message, isUser }) {
               onClick={() => setShowSources(!showSources)}
               className="text-xs font-medium text-gray-600 hover:text-indigo-600 flex items-center gap-1 mb-2"
             >
-              <span>{showSources ? "▼" : "▶"}</span>
+              {showSources ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
               <span>Sources ({message.sources.length})</span>
             </button>
 

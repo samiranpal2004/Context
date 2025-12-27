@@ -39,7 +39,7 @@ export function TagCloud({ tags = [] }) {
           className={`
             ${getFontSize(tag.count)}
             ${getOpacity(tag.count)}
-            font-semibold text-indigo-600 hover:text-purple-600
+            font-semibold text-premium-dark hover:text-black
             transition-all duration-200 cursor-pointer
             hover:scale-110
           `}

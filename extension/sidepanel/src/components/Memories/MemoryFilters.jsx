@@ -1,5 +1,6 @@
 import React from "react";
 import { getIntentIcon } from "../../utils/intentColors";
+import { BookOpen } from "lucide-react";
 
 export function MemoryFilters({
   selectedIntent,
@@ -26,7 +27,7 @@ export function MemoryFilters({
       <div className="flex flex-wrap gap-2">
         {intents.map((intent) => {
           const isSelected = selectedIntent === intent;
-          const icon = intent !== "all" ? getIntentIcon(intent) : "📚";
+          const Icon = intent !== "all" ? getIntentIcon(intent) : BookOpen;
 
           return (
             <button
@@ -37,12 +38,12 @@ export function MemoryFilters({
                 transition-all duration-200
                 ${
                   isSelected
-                    ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-md"
+                    ? "bg-premium-dark text-premium-light shadow-md"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }
               `}
             >
-              <span>{icon}</span>
+              <Icon size={14} />
               <span className="capitalize">{intent}</span>
             </button>
           );

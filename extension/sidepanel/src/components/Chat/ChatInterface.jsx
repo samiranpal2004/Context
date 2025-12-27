@@ -5,6 +5,7 @@ import LoadingSpinner from "../Common/LoadingSpinner";
 import EmptyState from "../Common/EmptyState";
 import ErrorMessage from "../Common/ErrorMessage";
 import backendAPI from "../../api/backend";
+import { MessageSquare } from "lucide-react";
 
 export function ChatInterface() {
   const [messages, setMessages] = useState([]);
@@ -75,7 +76,7 @@ export function ChatInterface() {
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center">
             <EmptyState
-              icon="💬"
+              icon={MessageSquare}
               title="Start a conversation"
               description="Ask me anything about your saved memories!"
             />
