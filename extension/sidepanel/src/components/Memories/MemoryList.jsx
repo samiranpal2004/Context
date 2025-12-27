@@ -5,6 +5,7 @@ import LoadingSpinner from "../Common/LoadingSpinner";
 import EmptyState from "../Common/EmptyState";
 import ErrorMessage from "../Common/ErrorMessage";
 import { useMemories } from "../../hooks/useMemories";
+import { BookOpen, Search } from "lucide-react";
 
 export function MemoryList() {
   const [selectedIntent, setSelectedIntent] = useState("all");
@@ -146,7 +147,7 @@ export function MemoryList() {
           filteredMemories.length === 0 &&
           memories.length === 0 && (
             <EmptyState
-              icon="📚"
+              icon={BookOpen}
               title="No memories yet"
               description="Press Ctrl+Shift+S to save a page and create your first memory!"
             />
@@ -157,7 +158,7 @@ export function MemoryList() {
           filteredMemories.length === 0 &&
           memories.length > 0 && (
             <EmptyState
-              icon="🔍"
+              icon={Search}
               title="No matching memories"
               description="Try adjusting your filters or search term."
               action={

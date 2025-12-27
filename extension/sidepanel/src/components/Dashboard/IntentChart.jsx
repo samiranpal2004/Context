@@ -17,13 +17,13 @@ export function IntentChart({ intentDistribution = [] }) {
       {intentDistribution.map((item, index) => {
         const percentage = total > 0 ? (item.count / total) * 100 : 0;
         const intentColor = getIntentColor(item.intent);
-        const intentIcon = getIntentIcon(item.intent);
+        const IntentIcon = getIntentIcon(item.intent);
 
         return (
           <div key={index} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-2">
-                <span>{intentIcon}</span>
+                <IntentIcon size={16} />
                 <span className="font-medium text-gray-700 capitalize">
                   {item.intent}
                 </span>

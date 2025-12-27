@@ -1,4 +1,5 @@
 import React from "react";
+import { Send } from "lucide-react";
 
 export function ChatInput({
   value,
@@ -27,7 +28,7 @@ export function ChatInput({
             }
             disabled={disabled}
             rows={3}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none transition-all duration-200"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-premium-dark focus:border-transparent resize-none transition-all duration-200"
           />
         </div>
         <button
@@ -36,7 +37,7 @@ export function ChatInput({
           className="btn-primary flex items-center gap-2 px-6 py-3 h-fit"
         >
           <span>Send</span>
-          <span>↑</span>
+          <Send size={16} />
         </button>
       </div>
       <p className="text-xs text-gray-500 mt-2">

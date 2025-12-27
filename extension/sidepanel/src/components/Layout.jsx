@@ -1,20 +1,27 @@
 import React from "react";
+import { 
+  LayoutDashboard, 
+  MessageSquare, 
+  BookOpen, 
+  Search, 
+  BrainCircuit 
+} from "lucide-react";
 
 export function Layout({ children, currentView, onViewChange }) {
   const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "chat", label: "Chat", icon: "💬" },
-    { id: "memories", label: "Memories", icon: "📚" },
-    { id: "search", label: "Search", icon: "🔍" },
+    { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
+    { id: "chat", label: "Chat", icon: <MessageSquare size={20} /> },
+    { id: "memories", label: "Memories", icon: <BookOpen size={20} /> },
+    { id: "search", label: "Search", icon: <Search size={20} /> },
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-premium-light">
       {/* Header */}
-      <header className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-3 shadow-lg">
+      <header className="bg-premium-dark text-premium-light px-4 py-3 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🧠</span>
+            <BrainCircuit size={24} />
             <h1 className="text-lg font-bold">Context</h1>
           </div>
           <div className="text-xs opacity-90">Your Memory Bank</div>
@@ -35,12 +42,12 @@ export function Layout({ children, currentView, onViewChange }) {
                   transition-all duration-200 font-medium text-xs
                   ${
                     isActive
-                      ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-md"
+                      ? "bg-premium-dark text-premium-light shadow-md"
                       : "text-gray-600 hover:bg-gray-100"
                   }
                 `}
               >
-                <span className="text-lg">{item.icon}</span>
+                <span>{item.icon}</span>
                 <span>{item.label}</span>
               </button>
             );
@@ -49,7 +56,7 @@ export function Layout({ children, currentView, onViewChange }) {
       </nav>
 
       {/* Main content */}
-      <main className="flex-1 overflow-hidden">{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
   );
 }

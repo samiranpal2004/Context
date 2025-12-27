@@ -8,6 +8,7 @@ import IntentChart from "./IntentChart";
 import MemoryCard from "../Memories/MemoryCard";
 import { useApiKey } from "../../hooks/useApiKey";
 import { useMemories } from "../../hooks/useMemories";
+import { BarChart2, BookOpen, Star, RotateCw, Tag, TrendingUp, Clock, Lightbulb } from "lucide-react";
 
 export function StatsOverview() {
   const [stats, setStats] = useState(null);
@@ -61,7 +62,7 @@ export function StatsOverview() {
   if (!stats) {
     return (
       <EmptyState
-        icon="📊"
+        icon={BarChart2}
         title="No statistics available"
         description="Save some pages to see your statistics."
       />
@@ -96,7 +97,7 @@ export function StatsOverview() {
                   {stats.overview?.total || 0}
                 </p>
               </div>
-              <div className="text-4xl">📚</div>
+              <BookOpen size={40} className="text-indigo-300" />
             </div>
           </div>
 
@@ -111,10 +112,10 @@ export function StatsOverview() {
                   <p className="text-3xl font-bold text-orange-900">
                     {stats.overview?.avgImportance?.toFixed(1) || "0.0"}
                   </p>
-                  <span className="text-yellow-500 text-xl">⭐</span>
+                  <Star size={24} className="text-yellow-500 fill-yellow-500" />
                 </div>
               </div>
-              <div className="text-4xl">⭐</div>
+              <Star size={40} className="text-orange-300" />
             </div>
           </div>
 
@@ -129,7 +130,7 @@ export function StatsOverview() {
                   {stats.overview?.totalRevisits || 0}
                 </p>
               </div>
-              <div className="text-4xl">🔄</div>
+              <RotateCw size={40} className="text-green-300" />
             </div>
           </div>
 
@@ -147,7 +148,7 @@ export function StatsOverview() {
                   {stats.topTags?.[0]?.count || 0} memories
                 </p>
               </div>
-              <div className="text-4xl flex-shrink-0">🏷️</div>
+              <Tag size={40} className="text-pink-300 flex-shrink-0" />
             </div>
           </div>
         </div>
@@ -156,7 +157,7 @@ export function StatsOverview() {
         {stats.intentDistribution && stats.intentDistribution.length > 0 && (
           <div className="card">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <span>📊</span>
+              <TrendingUp size={20} className="text-premium-dark" />
               <span>Intent Distribution</span>
             </h3>
             <IntentChart intentDistribution={stats.intentDistribution} />
@@ -167,7 +168,7 @@ export function StatsOverview() {
         {stats.topTags && stats.topTags.length > 0 && (
           <div className="card">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <span>🏷️</span>
+              <Tag size={20} className="text-premium-dark" />
               <span>Popular Tags</span>
             </h3>
             <TagCloud tags={stats.topTags} />
@@ -178,7 +179,7 @@ export function StatsOverview() {
         {recentMemories.length > 0 && (
           <div>
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <span>⏰</span>
+              <Clock size={20} className="text-premium-dark" />
               <span>Recent Memories</span>
             </h3>
             <div className="space-y-4">
@@ -192,7 +193,7 @@ export function StatsOverview() {
         {/* Quick tip */}
         <div className="card bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-100">
           <div className="flex items-start gap-3">
-            <span className="text-2xl">💡</span>
+            <Lightbulb size={24} className="text-yellow-500 fill-yellow-200 flex-shrink-0" />
             <div>
               <h4 className="font-semibold text-indigo-900 mb-1">Quick Tip</h4>
               <p className="text-sm text-indigo-700">
