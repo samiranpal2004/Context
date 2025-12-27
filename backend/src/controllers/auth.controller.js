@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import  User  from '../models/user.model.js';
+import User from '../models/user.model.js';
+import { connectDB } from '../lib/mongodb.js';
 
 
 const generateToken = (id) => {
@@ -15,6 +16,9 @@ const generateToken = (id) => {
 
 export const register = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { name, email, password } = req.body;
 
     // 1. Validation - Check if all fields provided
@@ -80,6 +84,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { email, password } = req.body;
 
     // 1. Validation
@@ -139,6 +146,9 @@ export const login = async (req, res) => {
 
 export const getMe = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     // req.user is set by protect middleware
     const user = await User.findById(req.user.id).select('-password');
     
@@ -168,6 +178,9 @@ export const getMe = async (req, res) => {
 
 export const regenerateApiKey = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     // Find user
     const user = await User.findById(req.user.id);
     
@@ -195,6 +208,9 @@ export const regenerateApiKey = async (req, res) => {
 
 export const verifyApiKey = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     // req.user is set by protectWithApiKey middleware
     res.json({
       success: true,

@@ -1,11 +1,15 @@
 import Memory from "../models/memory.model.js"
 import User from "../models/user.model.js"
 import { analyzePageCapture, generateEmbedding } from '../services/gemini.service.js';
-import { v4 as uuidv4 } from 'uuid'; 
+import { v4 as uuidv4 } from 'uuid';
+import { connectDB } from '../lib/mongodb.js'; 
 
 
 export const createMemory = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { url, title, domain, favicon, pageType, selectedText, customData } = req.body;
 
     // Validation
@@ -95,6 +99,9 @@ export const createMemory = async (req, res) => {
 
 export const getMemories = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
@@ -142,6 +149,9 @@ export const getMemories = async (req, res) => {
 
 export const getMemory = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const memory = await Memory.findOne({
       _id: req.params.id,
       userId: req.user._id
@@ -176,6 +186,9 @@ export const getMemory = async (req, res) => {
 
 export const updateMemory = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { userNotes, importance, tags } = req.body;
 
     const memory = await Memory.findOne({
@@ -213,6 +226,9 @@ export const updateMemory = async (req, res) => {
 
 export const deleteMemory = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const memory = await Memory.findOneAndDelete({
       _id: req.params.id,
       userId: req.user._id
@@ -246,6 +262,9 @@ export const deleteMemory = async (req, res) => {
 
 export const getMemoryStats = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const stats = await Memory.aggregate([
       { $match: { userId: req.user._id } },
       {

@@ -1,4 +1,5 @@
 import { semanticSearch } from '../services/search.service.js';
+import { connectDB } from '../lib/mongodb.js';
 
 /**
  * @desc    Semantic search memories
@@ -7,6 +8,9 @@ import { semanticSearch } from '../services/search.service.js';
  */
 export const searchMemories = async (req, res) => {
   try {
+    // Ensure DB connection
+    await connectDB();
+    
     const { query, limit = 10 } = req.body;
     
     if (!query) {
