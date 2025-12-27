@@ -55,6 +55,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ name, email, password }),
     });
     const result = await this.handleResponse<{
@@ -77,6 +78,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify({ email, password }),
     });
     const result = await this.handleResponse<{
@@ -95,6 +97,7 @@ class ApiService {
   async getMe(): Promise<User> {
     const response = await fetch(`${API_BASE_URL}/auth/me`, {
       headers: this.getHeaders(),
+      credentials: "include",
     });
     const result = await this.handleResponse<{ user: User }>(response);
     return result.user;
@@ -104,6 +107,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/auth/regenerate-api-key`, {
       method: "POST",
       headers: this.getHeaders(),
+      credentials: "include",
     });
     const result = await this.handleResponse<{ apiKey: string }>(response);
     this.setApiKey(result.apiKey);
@@ -126,6 +130,7 @@ class ApiService {
     }`;
     const response = await fetch(url, {
       headers: this.getHeaders(),
+      credentials: "include",
     });
     const result = await this.handleResponse<{ memories: Memory[] }>(response);
     return result.memories;
@@ -134,6 +139,7 @@ class ApiService {
   async getMemory(id: string): Promise<Memory> {
     const response = await fetch(`${API_BASE_URL}/memories/${id}`, {
       headers: this.getHeaders(),
+      credentials: "include",
     });
     const result = await this.handleResponse<{ memory: Memory }>(response);
     return result.memory;
@@ -150,6 +156,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/memories`, {
       method: "POST",
       headers: this.getHeaders(),
+      credentials: "include",
       body: JSON.stringify(memoryData),
     });
     const result = await this.handleResponse<{ memory: Memory }>(response);
@@ -160,6 +167,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/memories/${id}`, {
       method: "PATCH",
       headers: this.getHeaders(),
+      credentials: "include",
       body: JSON.stringify(data),
     });
     const result = await this.handleResponse<{ memory: Memory }>(response);
@@ -170,6 +178,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/memories/${id}`, {
       method: "DELETE",
       headers: this.getHeaders(),
+      credentials: "include",
     });
     await this.handleResponse<void>(response);
   }
@@ -177,6 +186,7 @@ class ApiService {
   async getStats(): Promise<UserStats> {
     const response = await fetch(`${API_BASE_URL}/memories/stats`, {
       headers: this.getHeaders(),
+      credentials: "include",
     });
     const result = await this.handleResponse<{
       overview: { total: number; avgImportance: number; totalRevisits: number };
@@ -201,6 +211,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/chat`, {
       method: "POST",
       headers: this.getHeaders(),
+      credentials: "include",
       body: JSON.stringify({ question: message, context }),
     });
     const result = await this.handleResponse<{
@@ -219,6 +230,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/chat/suggestions`, {
       method: "POST",
       headers: this.getHeaders(),
+      credentials: "include",
       body: JSON.stringify({ topic: query }),
     });
     const result = await this.handleResponse<{
@@ -233,6 +245,7 @@ class ApiService {
     const response = await fetch(`${API_BASE_URL}/search/semantic`, {
       method: "POST",
       headers: this.getHeaders(),
+      credentials: "include",
       body: JSON.stringify({ query, limit }),
     });
     const result = await this.handleResponse<{
