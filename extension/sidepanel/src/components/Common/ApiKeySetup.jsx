@@ -123,7 +123,7 @@ export function ApiKeySetup({ onApiKeySet }) {
                   Getting Started:
                 </p>
                 <ul className="text-xs text-indigo-700 space-y-1">
-                  <li>• Make sure backend is running on port 5000</li>
+                  <li>• Connected to backend server</li>
                   <li>• Register to get your API key</li>
                   <li>• API keys start with "ctx_"</li>
                 </ul>
